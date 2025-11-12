@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { GraduationCap, Home, Activity, Shield, Building2, Wallet, ShieldCheck, LogOut } from 'lucide-react';
+import { GraduationCap, Activity, Shield, Building2, Wallet, ShieldCheck, LogOut } from 'lucide-react';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import InstitutionDashboard from './components/InstitutionDashboard';
@@ -47,8 +47,8 @@ function App() {
     return <LoginPage onLogin={handleLogin} onBack={() => setCurrentView('landing')} />;
   }
 
-  if (currentView === 'operations' && !isAuthenticated) {
-    return <OperationsDashboard onBack={() => setCurrentView('landing')} />;
+  if (currentView === 'operations') {
+    return <OperationsDashboard onBack={() => isAuthenticated ? setCurrentView(userInfo?.role || 'landing') : setCurrentView('landing')} />;
   }
 
   return (
@@ -78,17 +78,6 @@ function App() {
             <div className="flex space-x-1 items-center">
               {isAuthenticated ? (
                 <>
-                  <button
-                    onClick={() => setCurrentView('landing')}
-                    className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center ${
-                      currentView === 'landing'
-                        ? 'bg-blue-600 text-white'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    <Home className="w-4 h-4 mr-2" />
-                    Home
-                  </button>
                   <button
                     onClick={() => setCurrentView('operations')}
                     className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center ${
@@ -160,31 +149,13 @@ function App() {
                     Logout
                   </button>
                 </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => setCurrentView('landing')}
-                    className="px-4 py-2 rounded-lg font-medium transition-colors flex items-center text-gray-600 hover:bg-gray-100"
-                  >
-                    <Home className="w-4 h-4 mr-2" />
-                    Home
-                  </button>
-                  <button
-                    onClick={() => setCurrentView('operations')}
-                    className="px-4 py-2 rounded-lg font-medium transition-colors flex items-center text-gray-600 hover:bg-gray-100"
-                  >
-                    <Activity className="w-4 h-4 mr-2" />
-                    Operations
-                  </button>
-                </>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
       </nav>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {currentView === 'operations' && <OperationsDashboard />}
         {currentView === 'admin' && isAuthenticated && userInfo?.role === 'admin' && <AdminPanel />}
         {currentView === 'institution' && isAuthenticated && userInfo?.role === 'institution' && <InstitutionDashboard />}
         {currentView === 'student' && isAuthenticated && userInfo?.role === 'student' && <StudentWallet />}
