@@ -114,11 +114,11 @@ export default function OperationsDashboard({ onBack }: OperationsDashboardProps
   const getUniqueInstitutions = async () => {
     try {
       const { data } = await supabase
-        .from('credentials')
-        .select('institution_address');
+        .from('institution_authorization_requests')
+        .select('id')
+        .eq('status', 'approved');
 
-      const unique = new Set(data?.map(d => d.institution_address) || []);
-      return unique.size;
+      return data?.length || 0;
     } catch {
       return 0;
     }
