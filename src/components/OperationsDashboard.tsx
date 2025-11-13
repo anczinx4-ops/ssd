@@ -245,9 +245,7 @@ export default function OperationsDashboard({ onBack }: OperationsDashboardProps
             )}
             {[
               { name: 'Dashboard', icon: Activity, view: 'dashboard' },
-              { name: 'Credentials', icon: Award, view: 'credentials' },
-              { name: 'Institutions', icon: Shield, view: 'institutions' },
-              { name: 'Analytics', icon: TrendingUp, view: 'analytics' }
+              { name: 'Institutions', icon: Shield, view: 'institutions' }
             ].map((item) => (
               <button
                 key={item.name}
@@ -277,15 +275,6 @@ export default function OperationsDashboard({ onBack }: OperationsDashboardProps
                 <p className="text-sm text-gray-400 mt-1">Real-time blockchain credential analytics</p>
               </div>
               <div className="flex items-center space-x-4">
-                {onBack && (
-                  <button
-                    onClick={onBack}
-                    className="hidden lg:flex items-center space-x-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-all duration-300 transform hover:scale-105"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    <span className="text-sm font-medium">Back</span>
-                  </button>
-                )}
                 <div className="hidden lg:flex items-center space-x-2 text-sm">
                   <Clock className="w-4 h-4 text-gray-400" />
                   <span className="text-gray-400">{new Date().toLocaleTimeString()}</span>
@@ -295,30 +284,12 @@ export default function OperationsDashboard({ onBack }: OperationsDashboardProps
           </header>
 
           <main className="p-4 lg:p-8">
-            {activeView === 'credentials' && (
-              <div className="bg-gray-800 rounded-2xl border border-gray-700 p-8 mb-8 animate-fade-in">
-                <h2 className="text-2xl font-bold text-white mb-4">Credentials Overview</h2>
-                <p className="text-gray-400">View and manage all issued credentials across the platform.</p>
-                <div className="mt-6 text-center text-gray-500">
-                  This section shows all credential data from the blockchain.
-                </div>
-              </div>
-            )}
             {activeView === 'institutions' && (
               <div className="bg-gray-800 rounded-2xl border border-gray-700 p-8 mb-8 animate-fade-in">
                 <h2 className="text-2xl font-bold text-white mb-4">Institutions Management</h2>
                 <p className="text-gray-400">Monitor authorized institutions and their activities.</p>
                 <div className="mt-6 text-center text-gray-500">
                   Institutional data and authorization status.
-                </div>
-              </div>
-            )}
-            {activeView === 'analytics' && (
-              <div className="bg-gray-800 rounded-2xl border border-gray-700 p-8 mb-8 animate-fade-in">
-                <h2 className="text-2xl font-bold text-white mb-4">Advanced Analytics</h2>
-                <p className="text-gray-400">Deep insights into credential issuance and verification patterns.</p>
-                <div className="mt-6 text-center text-gray-500">
-                  Detailed analytics and reporting tools.
                 </div>
               </div>
             )}
